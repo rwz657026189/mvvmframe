@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- dialog -->
+    <dimen name="dialog_padding">@dimen/h_16</dimen>
+    <!-- dialog背景圆角 -->
+    <dimen name="dialog_radius">@dimen/h_8</dimen>
+    <!-- tab高度 -->
+    <dimen name="tab_height">@dimen/v_50</dimen>
+    <!-- toolBar高度 -->
+    <dimen name="tool_bar_height">@dimen/h_44</dimen>
+    <!-- dialog水平margin -->
+    <dimen name="dialog_horizontal_margin">@dimen/h_16</dimen>
+    <!-- TabLayout高度 -->
+    <dimen name="tab_layout_height">@dimen/v_50</dimen>
+    <!-- 半圆半径，是一个相对值，并不唯一，只要比控件一半高即可 -->
+    <dimen name="semicircle">@dimen/h_50</dimen>
+    <!-- dialog最小宽度 -->
+    <dimen name="dialog_min_width">@dimen/h_300</dimen>
+    <!-- 默认阴影大小 -->
+    <dimen name="elevation_default">@dimen/v_3</dimen>
+
+</resources>

@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+        <import type="com.rwz.basemodule.entity.UpdateVersionEntity"/>
+        <import type="android.view.View"/>
+
+        <variable
+            name="entity"
+            type="UpdateVersionEntity"/>
+
+    </data>
+
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ProgressBar
+            android:id="@+id/progress"
+            android:layout_width="@dimen/h_56"
+            android:layout_height="@dimen/h_56"
+            android:layout_gravity="center"
+            android:visibility="@{!entity.hasNewVersion ? View.VISIBLE : View.GONE}"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/dialog_white_bg"
+            android:layout_marginLeft="@dimen/dialog_horizontal_margin"
+            android:layout_marginRight="@dimen/dialog_horizontal_margin"
+            android:orientation="vertical"
+            android:layout_gravity="center"
+            android:visibility="@{entity.hasNewVersion ? View.VISIBLE : View.GONE}">
+
+            <TextView
+                android:id="@+id/title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@{entity.hasNewVersion ? entity.versionTitle : @string/dialog_def_title}"
+                android:paddingTop="@dimen/v_22"
+                android:paddingBottom="@dimen/v_10"
+                android:textColor="@color/text_black_color"
+                android:textStyle="bold"
+                android:textSize="@dimen/text_16" />
+
+            <View
+                style="@style/line" />
+
+            <TextView
+                android:id="@+id/msg"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/v_18"
+                android:layout_marginTop="@dimen/dialog_padding"
+                android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                android:layout_marginRight="@dimen/activity_horizontal_margin"
+                android:gravity="center_vertical|left"
+                android:lineSpacingMultiplier="1.2"
+                android:minLines="2"
+                android:text="@{entity.hasNewVersion ? entity.versionMsg :  @string/dialog_no_new_version}"
+                android:textColor="@color/text_dark_color"
+                android:textSize="@dimen/text_14" />
+
+            <View
+                style="@style/line" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/cancel"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="@dimen/v_16"
+                    android:paddingTop="@dimen/v_16"
+                    android:gravity="center"
+                    android:text="@string/wait_a_moment"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="@dimen/text_16" />
+
+                <View
+                    style="@style/line_v" />
+
+                <TextView
+                    android:id="@+id/enter"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:paddingBottom="@dimen/v_16"
+                    android:paddingTop="@dimen/v_16"
+                    android:text="@string/update_immediately"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="@dimen/text_16" />
+            </LinearLayout>
+        </LinearLayout>
+
+    </FrameLayout>
+</layout>

@@ -1,0 +1,54 @@
+apply plugin: 'com.android.library'
+//dragger2 添加如下代码，应用apt插件
+//apply plugin: 'com.neenbedankt.android-apt'
+
+android {
+    compileSdkVersion rootProject.ext.android.compileSdkVersion
+    buildToolsVersion rootProject.ext.android.buildToolsVersion
+
+    defaultConfig {
+        minSdkVersion rootProject.ext.android.minSdkVersion
+        targetSdkVersion rootProject.ext.android.targetSdkVersion
+        versionCode rootProject.ext.android.versionCode
+        versionName rootProject.ext.android.versionName
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    dataBinding {
+        enabled = true
+    }
+}
+
+dependencies {
+    api fileTree(dir: 'libs', include: ['*.jar'])
+    api rootProject.ext.dependencies["support_annotations"]
+    api rootProject.ext.dependencies["espresso_core"]
+    api rootProject.ext.dependencies["appcompat_v7"]
+    // 滑动返回
+    api project(':swipeback')
+    // DataBinding
+    api project(':basedatabinding')
+    // 网络
+    api project(':network')
+    // ui控件
+    api project(':ui')
+    //web
+    api project(':web')
+    //权限管理 Multiple dex files define Landroid/support/design/widget/CoordinatorLayout$Behavior;
+    api (rootProject.ext.dependencies["rxpermissions"], {
+        exclude group: 'com.android.support', module: 'support-annotations'
+        exclude group: 'com.android.support', module: 'design'
+    })
+    //tabLayout
+    api rootProject.ext.dependencies["FlycoTabLayout_Lib"]
+    //美团打包
+    implementation rootProject.ext.dependencies["walle"]
+
+}

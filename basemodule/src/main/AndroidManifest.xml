@@ -1,0 +1,42 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.rwz.basemodule">
+
+    <uses-sdk tools:overrideLibrary="com.rwz.ui"/>
+
+    <!-- TalkingData -->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE"  />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"  />
+    <uses-permission android:name="android.permission.GET_TASKS"  />
+    <!-- TalkingData  END -->
+
+    <!-- 相机 -->
+    <uses-permission android:name="android.permission.CAMERA"/>
+    <!--系统下载类DownloadManager-->
+<!--
+    <uses-permission android:name="android.permission.ACCESS_DOWNLOAD_MANAGER"/>
+-->
+    <!-- 文件读写权限 -->
+    <uses-permission  android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <!-- 网络状态 -->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <!-- android 8.0以后版本升级必要权限 -->
+    <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
+
+    <!-- 下载没有权限时的广播自定义权限 -->
+    <permission android:name = "${applicationId}.ACTIVITY_RESULT_PERMISSION"/>
+    <uses-permission android:name = "${applicationId}.ACTIVITY_RESULT_PERMISSION"/>
+
+    <application
+        android:label="@string/app_name"
+        android:supportsRtl="true">
+
+        <activity android:name=".base.InstallTempActivity"/>
+        <!--下载更新服务-->
+        <service android:name=".service.DownloadService"/>
+
+    </application>
+
+</manifest>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="mll">
+        <!-- 子布局 -->
+        <attr name="itemLayout" format="reference"/>
+        <!-- 是否均分布局 -->
+        <attr name="isEqual" format="boolean"/>
+        <!-- 间距 -->
+        <attr name="space" format="integer|reference"/>
+        <!-- 限制child个数 -->
+        <attr name="childCount" format="integer"/>
+    </declare-styleable>
+
+
+    <!-- DataBinding 自定义属性  无实际意思, 仅方便xml提示 -->
+    <attr name="data" format="reference"/>
+    <attr name="setData" format="reference"/>
+    <declare-styleable name="RecyclerView">
+        <attr name="data"/>
+        <attr name="setData"/>
+    </declare-styleable>
+
+</resources>

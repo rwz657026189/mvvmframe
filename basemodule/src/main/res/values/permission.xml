@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="tips_no_write_permission">为了更好体验app, 请你授予文件读写入权限</string>
+    <string name="no_write_permission">没有授予文件写入权限,不能执行该操作</string>
+    <string name="no_setting_permission">没有授予修改系统设置权限,不能执行该操作</string>
+    <string name="not_camera_write_permission">没有授予拍照/文件读写权限,不能执行该操作</string>
+    <string name="not_record_permission">没有授予录音权限,不能执行该操作</string>
+    <string name="not_record_permission_to_call">没有授予录音权限,不能通话</string>
+    <string name="not_record_write_permission">没有授予录音/文件读写权限</string>
+    <string name="no_permission_to_update_new_version">没有授予文件写入权限,不能更新新版本, 是否重新授予权限？</string>
+    <string name="no_install_app_permission_to_update_new_version">没有授予安装未知来源应用权限,不能更新新版本, 是否重新授予权限？</string>
+
+</resources>

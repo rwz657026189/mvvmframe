@@ -1,0 +1,26 @@
+<resources>
+    <string name="app_name">CommonModule</string>
+    <string name="apk">.apk</string>
+    <string name="jpg">.jpg</string>
+    <string name="png">.png</string>
+    <string name="jpeg">.jpeg</string>
+    <string name="gif">.gif</string>
+    <!-- 启动页 -->
+    <string name="go_to">跳过</string>
+    <!-- 版本升级 -->
+    <string name="version_update">版本升级</string>
+    <string name="download_new_version">下载新版本中…</string>
+    <string name="download_completed_click_install">下载完成,点击安装</string>
+    <!-- 时间格式化 -->
+    <string name="at_once">刚刚</string>
+    <!-- 公共 -->
+    <string name="before_minute_default">%1$s分钟前</string>
+    <string name="tips_double_click">请不要快速连击</string>
+
+    <string name="copy">复制</string>
+    <string name="copy_text_completed">已复制到剪切板</string>
+    <string name="not_support_copy">android 3.0 以下不支持将文字复制到剪切板</string>
+
+
+
+</resources>

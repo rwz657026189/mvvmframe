@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<dimen name="text_8">5.97dp</dimen>
+	<dimen name="text_9">6.72dp</dimen>
+	<dimen name="text_10">7.46dp</dimen>
+	<dimen name="text_11">8.21dp</dimen>
+	<dimen name="text_12">8.96dp</dimen>
+	<dimen name="text_13">9.7dp</dimen>
+	<dimen name="text_14">10.45dp</dimen>
+	<dimen name="text_15">11.2dp</dimen>
+	<dimen name="text_16">11.94dp</dimen>
+	<dimen name="text_17">12.69dp</dimen>
+	<dimen name="text_18">13.44dp</dimen>
+	<dimen name="text_19">14.18dp</dimen>
+	<dimen name="text_20">14.93dp</dimen>
+	<dimen name="text_21">15.68dp</dimen>
+	<dimen name="text_22">16.42dp</dimen>
+	<dimen name="text_23">17.17dp</dimen>
+	<dimen name="text_24">17.92dp</dimen>
+	<dimen name="text_25">18.66dp</dimen>
+	<dimen name="text_26">19.41dp</dimen>
+	<dimen name="text_36">26.88dp</dimen>
+	<dimen name="text_50">37.33dp</dimen>
+</resources>

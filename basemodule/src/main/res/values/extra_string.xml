@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="refresh_header_pull_down">下拉可以刷新</string>
+    <string name="refresh_footer_refreshing">正在刷新…</string>
+    <string name="refresh_header_release">释放立即刷新</string>
+    <string name="refresh_header_finish">刷新完成</string>
+    <string name="refresh_header_failed">刷新失败</string>
+    <string name="refresh_header_last_time">上次更新 M-d HH:mm</string>
+    <string name="refresh_footer_pull_up">上拉加载更多</string>
+    <string name="refresh_footer_release">释放立即加载</string>
+    <string name="refresh_footer_finish">加载完成</string>
+    <string name="refresh_footer_no_more">没有更多数据了</string>
+
+</resources>
