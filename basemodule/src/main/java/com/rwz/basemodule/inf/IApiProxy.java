@@ -18,6 +18,6 @@ public interface IApiProxy {
 
     void submitRequest();
 
-    CommonObserver getObserver(int requestCode);
+    CommonObserver getObserver(String requestCode);
 
 }

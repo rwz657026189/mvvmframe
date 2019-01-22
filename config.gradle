@@ -4,7 +4,7 @@ ext {
 
     android = [
             compileSdkVersion       : 27,
-            buildToolsVersion       : '27.0.2',
+            buildToolsVersion       : '27.0.3',
             minSdkVersion           : 15,
             //targetSdkVersion       : 26
             targetSdkVersion        : 27,
@@ -53,6 +53,8 @@ ext {
             "SmartRefreshHeader"             : 'com.scwang.smartrefresh:SmartRefreshHeader:1.0.5.1',
             //无限循环的banner
             "banner"                         : 'com.bigkoo:convenientbanner:2.0.5',
+            //日志
+            "logger"                         : 'com.orhanobut:logger:2.2.0',
             //数据通信
             //"eventbus"                       : 'org.greenrobot:eventbus:3.0.0',
             //安卓调试神器-Stetho

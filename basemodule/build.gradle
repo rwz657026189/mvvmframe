@@ -1,6 +1,23 @@
 apply plugin: 'com.android.library'
+apply plugin: "guru.stefma.bintrayrelease"
 //dragger2 添加如下代码，应用apt插件
 //apply plugin: 'com.neenbedankt.android-apt'
+
+version = "1.0.0"
+group = "mvvmframe"
+publish {
+    userOrg = 'rwz657026189'
+//    repoName = 'maven'
+    artifactId = 'mvvmframe'
+    desc = '一个通用的mvvm框架'
+    website = 'https://github.com/rwz657026189/mvvmframe'
+}
+
+tasks.withType(Javadoc) {//防止编码问题
+    options.addStringOption('Xdoclint:none', '-quiet')
+    options.addStringOption('encoding', 'UTF-8')
+    options.addStringOption('charSet', 'UTF-8')
+}
 
 android {
     compileSdkVersion rootProject.ext.android.compileSdkVersion
@@ -24,6 +41,10 @@ android {
     dataBinding {
         enabled = true
     }
+    lintOptions {
+        abortOnError false
+    }
+
 }
 
 dependencies {

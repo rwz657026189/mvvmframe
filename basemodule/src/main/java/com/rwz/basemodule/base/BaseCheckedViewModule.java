@@ -177,7 +177,7 @@ public abstract class BaseCheckedViewModule<T extends IListView> extends BaseLis
     }
 
     @Override
-    protected void cleanDataOnRefresh(int requestCode) {
+    protected void cleanDataOnRefresh(String requestCode) {
         super.cleanDataOnRefresh(requestCode);
         if(mCheckableData != null)
             mCheckableData.clear();

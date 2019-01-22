@@ -48,13 +48,13 @@ public class MainListViewModule extends BaseListViewModule{
                 .subscribe(new CommonObserver<List<TestItemEntity>>() {
                     @Override
                     public void onNext(List<TestItemEntity> list) {
-                        onResponseSuccess(0, list);
+                        onResponseSuccess(null, list);
                     }
                 });
     }
 
     @Override
-    protected void handlerData(int requestCode, Object data) {
+    protected void handlerData(String requestCode, Object data) {
         super.handlerData(requestCode, data);
     }
 

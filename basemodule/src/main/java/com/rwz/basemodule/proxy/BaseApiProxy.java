@@ -28,7 +28,7 @@ public abstract class BaseApiProxy<VM extends BaseViewModule> implements IApiPro
     }
 
     @Override
-    public CommonObserver getObserver(final int requestCode) {
+    public CommonObserver getObserver(final String requestCode) {
         return new CommonObserver() {
             private boolean isCallOnNext = false;
             @Override

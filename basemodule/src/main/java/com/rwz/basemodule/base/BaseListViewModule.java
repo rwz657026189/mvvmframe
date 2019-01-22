@@ -1,6 +1,5 @@
 package com.rwz.basemodule.base;
 
-import android.content.Context;
 import android.databinding.ObservableBoolean;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.LayoutRes;
@@ -17,11 +16,10 @@ import com.rwz.basemodule.entity.SimpleResponseEntity;
 import com.rwz.basemodule.entity.TempEntity;
 import com.rwz.basemodule.temp.ITempView;
 import com.rwz.basemodule.temp.TempType;
-import com.rwz.commonmodule.utils.show.ToastUtil;
-import com.rwz.commonmodule.base.BaseApplication;
 import com.rwz.commonmodule.utils.app.Assert;
 import com.rwz.commonmodule.utils.app.ResourceUtil;
 import com.rwz.commonmodule.utils.show.LogUtil;
+import com.rwz.commonmodule.utils.show.ToastUtil;
 import com.rwz.network.CommonObserver;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
@@ -61,7 +59,7 @@ public abstract class BaseListViewModule<T extends IListView> extends BaseViewMo
     //分隔条位置
     protected List<Integer> mDecorationList;
     //标记需要采用空视图的请求;一般是第一条, 非特殊情况禁止修改（一般只用于刷新的适合会更改）
-    protected int mTempRequestCode = 0;
+    protected String mTempRequestCode = null;
     //加载完成后是否允许下拉刷新、上拉加载更多
     protected boolean isRefreshEnable = true;
     protected boolean isLoadingMoreEnable = true;
@@ -98,7 +96,6 @@ public abstract class BaseListViewModule<T extends IListView> extends BaseViewMo
 
     public TempEntity getTempEntity() {
         if (mTempEntity == null) {
-            Context context = BaseApplication.getInstance();
             Drawable nullImg = ResourceUtil.getDrawable(R.mipmap.no_data);
             Drawable errorImg = ResourceUtil.getDrawable(R.mipmap.no_nerwork);
             mTempEntity =  new TempEntity(nullImg, errorImg);
@@ -147,15 +144,15 @@ public abstract class BaseListViewModule<T extends IListView> extends BaseViewMo
     }
 
     @Override
-    protected CommonObserver getObserver(int requestCode) {
+    protected CommonObserver getObserver(String requestCode) {
         //若未修改, 标记第一条请求, 会根据该请求的结果决定是否显示占位图
-        if(mTempRequestCode == 0)
+        if(mTempRequestCode == null)
             mTempRequestCode = requestCode;
         return super.getObserver(requestCode);
     }
 
     @Override
-    public void onResponseError(int requestCode) {
+    public void onResponseError(String requestCode) {
         LogUtil.d(TAG, "BaseListViewModule","onResponseError" , "requestCode = " + requestCode, "mPage = " + mPage, "isRefresh = "  + isRefresh);
         if (mTempRequestCode == requestCode && mPage == FIRST_PAGE && isRefresh) {
             //先清空一次数据(比如再次搜索的时候加载失败,就需要清空数据在显示)
@@ -177,10 +174,9 @@ public abstract class BaseListViewModule<T extends IListView> extends BaseViewMo
      * 2. 刷新时会重新第一条请求
      * @param requestCode  请求码
      * @param data  实体类
-     * @param <T>
      */
     @Override
-    public synchronized <T> void onResponseSuccess(int requestCode, T data) {
+    public synchronized void onResponseSuccess(String requestCode, Object data) {
         LogUtil.d(TAG, "BaseListViewModule","onResponseSuccess" , "mTempRequestCode = " + mTempRequestCode, "requestCode = " + requestCode, "mPage = " + mPage, "isRefresh = " + isRefresh);
         if (mTempRequestCode == requestCode) {
             //判断是否为空集合
@@ -207,7 +203,7 @@ public abstract class BaseListViewModule<T extends IListView> extends BaseViewMo
     }
 
     /** 判断请求的数据是否为空 **/
-    protected <T> boolean isEmptyData(int requestCode, T data) {
+    protected boolean isEmptyData(String requestCode, Object data) {
         if (Assert.isEmptyColl(data)) {
             return true;
         } else if (data instanceof CommListData) {
@@ -217,7 +213,7 @@ public abstract class BaseListViewModule<T extends IListView> extends BaseViewMo
         return false;
     }
 
-    private <T> void performRequestData(int requestCode, T data) {
+    private void performRequestData(String requestCode, Object data) {
         if (mTempEntity != null) {
             mData.remove(mTempEntity);
             mTempEntity = null;
@@ -229,13 +225,12 @@ public abstract class BaseListViewModule<T extends IListView> extends BaseViewMo
     }
 
     /** 当刷新的时候清空数据 **/
-    protected void cleanDataOnRefresh(int requestCode) {
+    protected void cleanDataOnRefresh(String requestCode) {
         mData.clear();
     }
 
     /**
      * recyclerView item 点击事件
-     * @param position
      */
     public void onItemClick(int position) {
         if (position >= 0 && position < mData.size()) {
@@ -252,9 +247,8 @@ public abstract class BaseListViewModule<T extends IListView> extends BaseViewMo
      * 服务器请求到的实体类
      * @param requestCode 请求码
      * @param data  实体类
-     * @param <T>
      */
-    protected  <T> void handlerData(int requestCode, T data) {
+    protected void handlerData(String requestCode, Object data) {
         LogUtil.d(TAG,"handlerData", "requestCode = " + requestCode, "data = " + data);
         if (Assert.isNonEmptyColl(data) && mData != null) {
             mData.addAll((Collection<? extends IBaseMulInterface>) data);

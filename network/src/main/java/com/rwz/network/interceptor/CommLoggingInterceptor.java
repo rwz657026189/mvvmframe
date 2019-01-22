@@ -20,14 +20,14 @@ import okhttp3.ResponseBody;
 
 public class CommLoggingInterceptor implements Interceptor {
 
-    private static final String TAG = "OkHttp";
+    private static final String TAG = "CommLoggingInterceptor";
 
     @Override
     public Response intercept(Interceptor.Chain chain) throws IOException {
         //这个chain里面包含了request和response，所以你要什么都可以从这里拿
         Request request = chain.request();
         RequestBody body = request.body();
-        LogUtil.tag(TAG, "body = " + body.contentLength(), "heads = " + request.headers());
+        LogUtil.ok(TAG, "heads = " + request.headers());
         if (body instanceof FormBody) {
             FormBody formBody = (FormBody) body;
             int size = formBody.size();
@@ -35,7 +35,7 @@ public class CommLoggingInterceptor implements Interceptor {
             for (int i = 0; i < size; i++) {
                 sb.append("║   ").append(formBody.name(i)).append(" = ").append(formBody.value(i)).append("\n");
             }
-            LogUtil.tag(TAG, "url : \n║   " + request.url(), "\n║   请求body : \n" + sb.toString());
+            LogUtil.ok(TAG, "url : \n║   " + request.url(), "\n║   请求body : \n" + sb.toString());
         }
         long t1 = System.currentTimeMillis();//请求发起的时间
         Response response = chain.proceed(request);
@@ -47,7 +47,7 @@ public class CommLoggingInterceptor implements Interceptor {
         ResponseBody responseBody = response.peekBody(1024 * 1024);
 
         HttpUrl url = response.request().url();
-        LogUtil.tag(TAG, "接收响应: \n║   " +
+        LogUtil.ok(TAG, "接收响应: \n║   " +
                  url + "\n║   " +
                 "耗时：" + TimeUtil.formatTimePrecise((t2 - t1), TimeUtil.FORMAT_PRECISE2, 2, false) + "\n║   " +
                 "响应头：" + response.headers(), "body = " + body);

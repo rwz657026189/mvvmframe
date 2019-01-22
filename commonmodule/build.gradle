@@ -28,6 +28,7 @@ dependencies {
     api rootProject.ext.dependencies["espresso_core"]
     api rootProject.ext.dependencies["appcompat_v7"]
 
+    api rootProject.ext.dependencies["logger"]
     api rootProject.ext.dependencies["gson"]
     api rootProject.ext.dependencies["glide"]
     api rootProject.ext.dependencies["glide-transformations"]

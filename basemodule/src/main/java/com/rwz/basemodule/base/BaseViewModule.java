@@ -71,23 +71,22 @@ public class BaseViewModule<T extends IView> extends RxViewModule<T> {
         }
     }
 
-    protected CommonObserver getObserver(final int requestCode) {
+    protected CommonObserver getObserver(final String requestCode) {
         return mApiProxy != null ? mApiProxy.getObserver(requestCode) : null;
     }
 
     /**
      * 请求失败的回调
      */
-    public  void onResponseError(int requestCode) {
+    public  void onResponseError(String requestCode) {
     }
 
     /**
      * 请求成功的回调
      * @param requestCode 请求码
      * @param data        实体类
-     * @param <T>
      */
-    public synchronized <T> void onResponseSuccess(int requestCode, T data) {
+    public synchronized void onResponseSuccess(String requestCode, Object data) {
         if (data != null && data instanceof SimpleResponseEntity) {
             String message = ((SimpleResponseEntity) data).getMessage();
             ToastUtil.showShort(message);
