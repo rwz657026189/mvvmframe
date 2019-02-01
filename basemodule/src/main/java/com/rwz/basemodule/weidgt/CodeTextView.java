@@ -61,7 +61,8 @@ public class CodeTextView extends AppCompatTextView {
         isFinishCountDown = false;
         setText(String.format(ENABLE_STR,MAX_SEND_TIME));
         setEnabled(canClick);
-
+        if(mDisposable != null && !mDisposable.isDisposed())
+            mDisposable.dispose();
         Observable.interval(1, TimeUnit.SECONDS)
                 .takeUntil(new Predicate<Long>() {
                     @Override

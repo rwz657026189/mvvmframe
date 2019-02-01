@@ -162,8 +162,8 @@ public class EncryptionUtil {
      */
     public static String encodeDES(String express, String key) throws Exception {
         if (express == null) return null;
-        byte[] bCiphertext = encryptDES(express.getBytes(ENCODE), key.getBytes(ENCODE));
-        return new sun.misc.BASE64Encoder().encode(bCiphertext);//返回密文
+        byte[] encryptDES = encryptDES(express.getBytes(ENCODE), key.getBytes(ENCODE));
+        return new sun.misc.BASE64Encoder().encode(encryptDES);//返回密文
     }
 
     public static String encodeBase64( byte[] bytes) {
@@ -186,10 +186,10 @@ public class EncryptionUtil {
      * @throws IOException
      * @throws Exception
      */
-    public static String decryptDES(String ciphertext, String key) throws IOException, Exception {
-        if (ciphertext == null) return null;
+    public static String decryptDES(String cipher, String key) throws IOException, Exception {
+        if (cipher == null) return null;
         sun.misc.BASE64Decoder decoder = new sun.misc.BASE64Decoder();
-        byte[] buf = decoder.decodeBuffer(ciphertext);
+        byte[] buf = decoder.decodeBuffer(cipher);
         byte[] bExpress = decryptDES(buf, key.getBytes(ENCODE));
         return new String(bExpress, ENCODE);
     }
@@ -229,11 +229,11 @@ public class EncryptionUtil {
         DESKeySpec dks = new DESKeySpec(key);
         // 创建一个密钥工厂，然后用它把DESKeySpec转换成SecretKey对象
         SecretKeyFactory keyFactory = SecretKeyFactory.getInstance(DES);
-        SecretKey securekey = keyFactory.generateSecret(dks);
+        SecretKey secureKey = keyFactory.generateSecret(dks);
         // Cipher对象实际完成解密操作
         Cipher cipher = Cipher.getInstance(DES);
         // 用密钥初始化Cipher对象
-        cipher.init(Cipher.DECRYPT_MODE, securekey, sr);
+        cipher.init(Cipher.DECRYPT_MODE, secureKey, sr);
         return cipher.doFinal(data);
     }
 

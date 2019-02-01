@@ -78,7 +78,7 @@ public class IconTextView extends AppCompatTextView {
         int leftDrawWidth = 0;
         int rightDrawWidth = 0;
         int x = 0;
-        int y = height - LINE_WIDTH;
+        int y = height - LINE_WIDTH / 2;
         mPaint.setColor(LINE_COLOR);
         //绘制底部线条
         if (isShowBottomLine) {
@@ -87,6 +87,10 @@ public class IconTextView extends AppCompatTextView {
             }
             int lineStartX = 0, lineEndX = width;
             switch (mTextAlignType) {
+                case ALIGN_VIEW:
+                    lineStartX = 0;
+                    lineEndX = width;
+                    break;
                 case ALIGN_LEFT_ICON:
                     lineStartX = getPaddingLeft() + leftDrawWidth;
                     break;

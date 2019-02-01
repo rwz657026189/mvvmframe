@@ -100,10 +100,10 @@ public abstract class AbsSimpleAdapter<T> extends BaseAdapter {
     /**
      * 设置Adapter监听
      *
-     * @param mListener
+     * @param listener
      */
-    public void setOnMyAdapterListener(AbsOnAdapterListener mListener) {
-        this.mListener = mListener;
+    public void setOnMyAdapterListener(AbsOnAdapterListener listener) {
+        mListener = listener;
     }
 
     /**

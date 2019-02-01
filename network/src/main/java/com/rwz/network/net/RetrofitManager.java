@@ -7,7 +7,6 @@ import android.text.TextUtils;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.google.protobuf.ExtensionRegistry;
 import com.rwz.commonmodule.config.GlobalConfig;
 import com.rwz.commonmodule.utils.show.LogUtil;
 import com.rwz.commonmodule.utils.system.AndroidUtils;
@@ -16,6 +15,7 @@ import com.rwz.network.gson.GsonConverterFactory;
 import com.rwz.network.interceptor.CommLoggingInterceptor;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
@@ -26,7 +26,6 @@ import okhttp3.Request;
 import okhttp3.Response;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
-import retrofit2.converter.protobuf.ProtoConverterFactory;
 
 /**
  * Created by rwz on 2017/7/12.
@@ -72,11 +71,9 @@ public class RetrofitManager {
     private void createRetrofit(int timeOutMillSeconds, String host) {
         Gson gson = new GsonBuilder().setLenient().create();
         LogUtil.d(TAG, "createRetrofit", "baseUrl = " + host);
-        ExtensionRegistry registry = ExtensionRegistry.newInstance();
         mRetrofit =  new Retrofit.Builder()
                 .baseUrl(host)
                 .client(getClient(timeOutMillSeconds))
-                .addConverterFactory(ProtoConverterFactory.createWithRegistry(registry))//一定要在gsonconvert的前面
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .build();
@@ -157,8 +154,17 @@ public class RetrofitManager {
         return builder.build();
     }
 
-    public void setHeaderMap(Map<String, String> mHeaderMap) {
-        this.mHeaderMap = mHeaderMap;
+    public void addHeaderParams(Map<String, String> headerMap) {
+        if(this.mHeaderMap == null)
+            this.mHeaderMap = new HashMap<>();
+        this.mHeaderMap.putAll(headerMap);
+    }
+
+    public RetrofitManager addHeaderParam(String key, String value) {
+        if(this.mHeaderMap == null)
+            this.mHeaderMap = new HashMap<>();
+        this.mHeaderMap.put(key, value);
+        return this;
     }
 
 }

@@ -34,8 +34,4 @@ dependencies {
     api rootProject.ext.dependencies["adapter-rxjava2"]
     api rootProject.ext.dependencies["logging-interceptor"]
 
-    //采用protobuf
-    api 'com.squareup.retrofit2:converter-protobuf:2.2.0'
-    api 'com.google.protobuf:protobuf-java:3.2.0'
-
 }

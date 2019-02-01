@@ -126,6 +126,8 @@ public class StateButton extends SingleCenterTextView {
         if (isEnablePressState && isEnabled()) {
             setPaintColor(mPressColor);
             setTextColor(mPressTextColor);
+            //避免字体颜色没变时不刷新
+            postInvalidate();
         }
     }
 
@@ -156,6 +158,8 @@ public class StateButton extends SingleCenterTextView {
     private void onNormal() {
         setPaintColor(isEnabled() || !isEnableDisableState ? mEnableColor : mDisableColor);
         setTextColor(isEnabled() || !isEnableDisableState ? mEnableTextColor : mDisableTextColor);
+        //避免字体颜色没变时不刷新
+        postInvalidate();
     }
 
     @Override

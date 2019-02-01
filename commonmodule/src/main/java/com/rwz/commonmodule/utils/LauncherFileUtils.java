@@ -21,7 +21,7 @@ import java.io.InputStream;
  * 根据icon 创建 5个分目录的 ic_launcher文件
  *
  */
-class LauncherFileUtils {
+public class LauncherFileUtils {
 
     private static final String TAG = "FileUtils";
 

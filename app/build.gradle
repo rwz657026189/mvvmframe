@@ -69,4 +69,8 @@ dependencies {
     implementation project(':basemodule')
     //约束布局
     implementation rootProject.ext.dependencies["constraint-layout"]
+
+    //一行代码监听下载进度(未测试) https://github.com/JessYanCoding/ProgressManager/blob/master/README-zh.md
+    implementation 'me.jessyan:progressmanager:1.5.0'
+
 }
