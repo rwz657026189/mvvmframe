@@ -19,10 +19,13 @@ import com.rwz.basemodule.R;
 import com.rwz.basemodule.abs.IView;
 import com.rwz.basemodule.abs.IViewModule;
 import com.rwz.basemodule.abs.PostEventType;
+import com.rwz.basemodule.common.LoadingDialog;
 import com.rwz.basemodule.common.MsgDialog;
+import com.rwz.basemodule.entity.turnentity.LoadingDialogTurnEntity;
 import com.rwz.basemodule.entity.turnentity.MsgDialogTurnEntity;
 import com.rwz.basemodule.inf.CommBiConsumer;
 import com.rwz.basemodule.manager.StatisticsManager;
+import com.rwz.basemodule.utils.FragmentUtil;
 import com.rwz.commonmodule.ImageLoader.ImageLoaderUtil;
 import com.rwz.commonmodule.help.DialogHelp;
 import com.rwz.commonmodule.utils.app.ResourceUtil;
@@ -55,6 +58,7 @@ public abstract class BaseFragment<VB extends ViewDataBinding,
     protected @StringRes int TD_PAGE_ID; //TD统计页面标示 字串id
 
     private MsgDialog mDialog;
+    private LoadingDialog mLoadDialog; //加载中对话框
     protected boolean isUseDelayLoad;//是否延迟加载
     private boolean isInit; //是否初始化
 
@@ -167,6 +171,14 @@ public abstract class BaseFragment<VB extends ViewDataBinding,
                 if (params != null && params instanceof MsgDialogTurnEntity) {
                     showMsgDialog((MsgDialogTurnEntity) params);
                 }
+            case IView.SHOW_LOADING://显示正在加载对话框
+                if (params != null && params instanceof LoadingDialogTurnEntity) {
+                    showLoadDialog((LoadingDialogTurnEntity) params);
+                }
+                break;
+            case IView.DISMISS_LOADING://隐藏正在加载对话框
+                dismissLoadDialog();
+                break;
         }
     }
 
@@ -193,6 +205,21 @@ public abstract class BaseFragment<VB extends ViewDataBinding,
         if (isAlive) {
             Fragment fragment = getParentFragment();
             DialogHelp.show(fragment != null ? getChildFragmentManager() : getFragmentManager(), mDialog, "msgDialog");
+        }
+    }
+
+    protected void showLoadDialog(LoadingDialogTurnEntity entity) {
+        if (mLoadDialog == null) {
+            mLoadDialog = FragmentUtil.newDialog(LoadingDialog.class, entity);
+        } else {
+            mLoadDialog.setEntity(entity);
+        }
+        DialogHelp.show(getChildFragmentManager(), mLoadDialog, "mLoadDialog");
+    }
+
+    protected void dismissLoadDialog() {
+        if (mLoadDialog != null) {
+            mLoadDialog.dismissAllowingStateLoss();
         }
     }
 

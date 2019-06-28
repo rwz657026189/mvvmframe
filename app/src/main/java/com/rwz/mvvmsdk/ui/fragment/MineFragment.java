@@ -1,6 +1,7 @@
 package com.rwz.mvvmsdk.ui.fragment;
 
 import android.os.Bundle;
+import android.view.View;
 
 import com.rwz.basemodule.base.BaseFragment;
 import com.rwz.mvvmsdk.R;
@@ -23,5 +24,6 @@ public class MineFragment extends BaseFragment<FragmentMineBinding, MineViewModu
     protected void init(Bundle savedInstanceState) {
         super.init(savedInstanceState);
         setPageTitle(R.string.mine);
+        mLeftView.setVisibility(View.GONE);
     }
 }

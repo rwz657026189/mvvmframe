@@ -1,5 +1,7 @@
 package com.rwz.mvvmsdk.ui.activity;
 
+import android.os.Bundle;
+
 import com.rwz.basemodule.base.BaseFragment;
 import com.rwz.basemodule.base.BaseTabVpActivity;
 import com.rwz.basemodule.databinding.ActivityTabVpBinding;
@@ -34,5 +36,10 @@ public class MainActivity extends BaseTabVpActivity<ActivityTabVpBinding> {
         if(position == 2)
             return new MineFragment();
         return FragmentUtil.newInstance(MainListFragment.class, position);
+    }
+
+    @Override
+    public void setSwipeBackEnable(boolean enable) {
+        super.setSwipeBackEnable(false);
     }
 }
