@@ -27,6 +27,7 @@ import com.rwz.basemodule.inf.CommBiConsumer;
 import com.rwz.basemodule.manager.StatisticsManager;
 import com.rwz.basemodule.utils.FragmentUtil;
 import com.rwz.commonmodule.ImageLoader.ImageLoaderUtil;
+import com.rwz.commonmodule.help.CheckHelp;
 import com.rwz.commonmodule.help.DialogHelp;
 import com.rwz.commonmodule.utils.app.ResourceUtil;
 import com.rwz.commonmodule.utils.app.StringUtil;
@@ -351,7 +352,8 @@ public abstract class BaseFragment<VB extends ViewDataBinding,
     }
 
     protected void onTitleClick() {
-        scrollToTop();
+        if(CheckHelp.isDoubleClick())
+            scrollToTop();
     }
 
     public void onLeftClick() {

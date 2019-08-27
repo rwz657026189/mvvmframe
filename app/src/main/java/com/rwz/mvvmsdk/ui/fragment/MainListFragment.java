@@ -11,9 +11,9 @@ import com.rwz.basemodule.config.BaseKey;
 import com.rwz.basemodule.databinding.LayoutRecyclerviewBinding;
 import com.rwz.basemodule.entity.params.CommBottomEntity;
 import com.rwz.commonmodule.help.DialogHelp;
-import com.rwz.commonmodule.utils.show.LogUtil;
 import com.rwz.commonmodule.utils.show.ToastUtil;
 import com.rwz.mvvmsdk.R;
+import com.rwz.mvvmsdk.utils.TurnHelp;
 import com.rwz.mvvmsdk.view_module.MainListViewModule;
 
 import java.util.List;
@@ -74,11 +74,16 @@ public class MainListFragment extends BaseListFragment<LayoutRecyclerviewBinding
         CommBottomDialog dialog = new CommBottomDialog.Build()
                 .setTitle("首页更多")
                 .addItem("版本升级")
+                .addItem("跳转h5")
                 .create();
         dialog.setOnClickItemListener(new CommBottomDialog.OnClickItemListener() {
             @Override
             public void onClickItem(Context context, int position, List<CommBottomEntity> data, Bundle args) {
-                ToastUtil.getInstance().showShortSingle("暂时没有新版本");
+                if (position == 0) {
+                    ToastUtil.getInstance().showShortSingle("暂时没有新版本");
+                } else {
+                    TurnHelp.h5(getContext(), "http://app.foundersc.com/api/quote/factor/dist/index.html#/");
+                }
             }
         });
         DialogHelp.show(getContext(), dialog, "CommBottomDialog");

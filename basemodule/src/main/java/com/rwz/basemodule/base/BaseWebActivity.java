@@ -122,7 +122,7 @@ public abstract class BaseWebActivity<VB extends ViewDataBinding,
 
     }
 
-    private void setTempType(int type) {
+    protected void setTempType(int type) {
         if(mTempEntity != null)
             mTempEntity.setType(type);
     }

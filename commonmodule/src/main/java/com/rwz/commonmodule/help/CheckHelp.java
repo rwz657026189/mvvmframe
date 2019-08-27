@@ -21,6 +21,7 @@ public class CheckHelp {
     private static long mLastTurnTime;//记录最后一次的跳转时间
     private static long mLastClickTime;//记录最后一次的点击时间（有时跳转跟点击同步进行，故分开记录）
     private static long mLastRequestTime;//记录最后一次的网络请求时间
+    private static long mPreClickTimeForDouble;//记录上一次点击时间(双击用)
 
     //检查参数是否有效
     public static boolean checkParamValid(String invalidParam,String... params) {
@@ -70,4 +71,17 @@ public class CheckHelp {
         }
         return canClick;
     }
+
+    //是否双击
+    public static boolean isDoubleClick() {
+        long currClickTime = System.currentTimeMillis();
+        if (mPreClickTimeForDouble == 0) {
+            mPreClickTimeForDouble = currClickTime;
+            return false;
+        }
+        boolean result = currClickTime - mPreClickTimeForDouble < TIME_INTERVAL_CLICK;
+        mPreClickTimeForDouble = result ? 0 : currClickTime;
+        return result;
+    }
+
 }
