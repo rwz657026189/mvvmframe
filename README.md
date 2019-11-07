@@ -5,6 +5,7 @@
    - 内置多种BindingAdapter（ViewBindingAdapter、ImageBindingAdapter、TextBindingAdapter等），极大扩展了基本控件支持能力
    - 强大的列表支持，简单配置即可实现复杂列表，更不需要关心loading、error、empty等视图展示效果，下拉刷新，上拉加载更多，分页加载都不需要额外实现
    - 支持多选列表，只需要继承BaseCheckedViewModule，已实现单选、多选、全选、部分不可选等业务逻辑
+   - 动态支持系统webView或腾讯X5内核webView，填了很多坑（选择本地图片、混合协议、视频加载、部分页面加载不出、不能唤醒支付宝、微信等等）
    - 内置常用ui控件
       - CommMenuPop：只需要简单的数据即可实现漂亮的PopupWindow效果
       - CommBottomDialog：通用底部弹出dialog
