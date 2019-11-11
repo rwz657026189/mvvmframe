@@ -3,8 +3,28 @@ package com.rwz.commonmodule.utils.app;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.net.wifi.WifiInfo;
+import android.net.wifi.WifiManager;
 import android.telephony.TelephonyManager;
 import android.text.TextUtils;
+
+import com.rwz.commonmodule.base.BaseApplication;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.InetAddress;
+import java.net.MalformedURLException;
+import java.net.NetworkInterface;
+import java.net.SocketException;
+import java.net.URL;
+import java.net.URLConnection;
+import java.util.Enumeration;
 
 /**
  * 跟网络相关的工具类
@@ -123,6 +143,102 @@ public class NetUtils {
             default:
                 return false;
         }
+    }
+
+    /**
+     * 获取内网ip
+     *  参考：https://www.cnblogs.com/jxust-jiege666/p/8168149.html
+     * **/
+    public static String getIp() {
+        Context context = BaseApplication.getInstance();
+        int netWorkType = getNetWorkType(context);
+        if(netWorkType == NETWORK_TYPE_WIFI)
+            return getWifiIp(context);
+        else if(isConnected(context))
+            return getLocalIpAddress();
+        return null;
+    }
+
+    private static String getWifiIp(Context context) {
+        //获取wifi服务
+        WifiManager wifiManager = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
+        //判断wifi是否开启
+        if (!wifiManager.isWifiEnabled()) {
+            return "";
+        }
+        WifiInfo wifiInfo = wifiManager.getConnectionInfo();
+        int ipAddress = wifiInfo.getIpAddress();
+        String ip = intToIp(ipAddress);
+        return ip;
+    }
+
+    //获取Wifi ip 地址
+    private static String intToIp(int i) {
+        return (i & 0xFF) + "." +
+                ((i >> 8) & 0xFF) + "." +
+                ((i >> 16) & 0xFF) + "." +
+                (i >> 24 & 0xFF);
+    }
+
+    //获取本地IP
+    private static String getLocalIpAddress() {
+        try {
+            for (Enumeration<NetworkInterface> en = NetworkInterface
+                    .getNetworkInterfaces(); en.hasMoreElements(); ) {
+                NetworkInterface intf = en.nextElement();
+                for (Enumeration<InetAddress> enumIpAddr = intf
+                        .getInetAddresses(); enumIpAddr.hasMoreElements(); ) {
+                    InetAddress inetAddress = enumIpAddr.nextElement();
+                    if (!inetAddress.isLoopbackAddress() && !inetAddress.isLinkLocalAddress()) {
+                        return inetAddress.getHostAddress().toString();
+                    }
+                }
+            }
+        } catch (SocketException ex) {
+            ex.printStackTrace();
+        }
+        return null;
+    }
+
+    /**
+     * 获取外网IP地址
+     * @return 获取外网ip，需要请求网络，请在子线程调用
+     */
+    public static String getNetIp() {
+        String line = "";
+        URL infoUrl = null;
+        InputStream inStream = null;
+        try {
+            infoUrl = new URL("http://pv.sohu.com/cityjson?ie=utf-8");
+            URLConnection connection = infoUrl.openConnection();
+            HttpURLConnection httpConnection = (HttpURLConnection) connection;
+            int responseCode = httpConnection.getResponseCode();
+            if (responseCode == HttpURLConnection.HTTP_OK) {
+                inStream = httpConnection.getInputStream();
+                BufferedReader reader = new BufferedReader(new InputStreamReader(inStream, "utf-8"));
+                StringBuilder strber = new StringBuilder();
+                while ((line = reader.readLine()) != null)
+                    strber.append(line + "\n");
+                inStream.close();
+                // 从反馈的结果中提取出IP地址
+                int start = strber.indexOf("{");
+                int end = strber.indexOf("}");
+                String json = strber.substring(start, end + 1);
+                if (json != null) {
+                    try {
+                        JSONObject jsonObject = new JSONObject(json);
+                        line = jsonObject.optString("cip");
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return line;
     }
 
 }
